@@ -1,22 +1,14 @@
-let testData;
-let cfg;
+let map;
+let dangerInfo;
 
 function setup() {
-  // Heatmap config
-  cfg = {
-    radius: 25,
-    maxOpacity: 1,
-    minOpacity: 0.5,
-    blur: 0.75,
-    scaleRadius: false,
-    useLocalExtrema: true,
-    latField: "lat",
-    lngField: "lng",
-    valueField: "count",
-  };
+  createCanvas(800, 800);
 
-  //Sample data ONLY
-  testData = {
+  map = new Map();
+  map.display(dangerInfo);
+
+  //Temp data for testing
+  dangerInfo = {
     max: 8,
     data: [
       {lat: 56.44879, lng: 9.396084, count: 8},
@@ -26,19 +18,9 @@ function setup() {
   };
 }
 
-function draw() {
-  // Create map inside of div (from html)
-  let map = L.map("map-canvas", {
-    center: [56.44879, 9.396084],
-    zoom: 13,
-  });
+function draw() {}
 
-  // Display base layer
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-
-  // Heatmap layer
-  let heatmapLayer = new HeatmapOverlay(cfg).addTo(map);
-
-  // Apply data to the heatmap overlay
-  heatmapLayer.setData(testData);
-}
+//Repeat the display of danger-zones as heatmap
+setInterval(() => {
+  map.display(dangerInfo);
+}, 500);
