@@ -3,3 +3,4 @@
     - Save and recive from Local Storage
     - Get location for map center
     - Slider or input to change update interval
+    - Start-up message

@@ -22,6 +22,12 @@ class IconBtns {
     this.zoomPref.input(() => {
       this.map.setZoom(this.zoomPref.value());
     });
+
+    this.profileSubmit = createButton("Indsend").position(200, 700).hide();
+
+    this.profileSubmit.mousePressed(() => {
+      this.infoSubmitted();
+    });
   }
 
   display(barometer, vennesymbol, natteravn, brugerprofil) {
@@ -51,9 +57,11 @@ class IconBtns {
 
       this.inputPhone.show();
       this.zoomPref.show();
+      this.profileSubmit.show();
     } else {
       this.inputPhone.hide();
       this.zoomPref.hide();
+      this.profileSubmit.hide();
       // ICON VIEW
       image(barometer, 0, 0, this.btnW, height);
       image(vennesymbol, this.vennesymbolX, -height / 6.67, this.btnW, height * 1.4);
@@ -87,7 +95,10 @@ class IconBtns {
     } else if (x > this.natteravnX && x < this.natteravnX + width / 5 && this.mode == "icons") {
       console.log("Call Natteravn");
     }
+  }
 
+  //Runs when clicking submit in profile settings
+  infoSubmitted() {
     //Check profile input
     if (this.mode === "profile") {
       if (this.inputPhone) {
@@ -97,9 +108,6 @@ class IconBtns {
         } else {
           console.log("Blank");
         }
-      }
-      if (this.zoomPref) {
-        this.zoomPref.value();
       }
     }
   }
