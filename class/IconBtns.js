@@ -9,7 +9,7 @@ class IconBtns {
 
     this.mode = "icons"; // icons, barometer, profile
 
-    this.venTelf = "";
+    this.venTelf = localStorage.getItem("venTelf") ? parseInt(localStorage.getItem("venTelf")) : "";
 
     //Phone Input (created, with position, and hidden)
     this.inputPhone = createInput().position(180, 615).hide();
@@ -104,7 +104,7 @@ class IconBtns {
       if (this.inputPhone) {
         this.venTelf = this.inputPhone.value();
         if (this.venTelf != "") {
-          console.log("Telf: " + this.venTelf);
+          localStorage.setItem("venTelf", this.venTelf);
         } else {
           console.log("Blank");
         }
