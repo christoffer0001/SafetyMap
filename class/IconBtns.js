@@ -71,6 +71,7 @@ class IconBtns {
   }
 
   clicked(x, y) {
+    if (x < 0 || x > width || y < 0 || y > height) return;
     if (this.mode === "barometer") {
       for (let i = 0; i < 10; i++) {
         let rectX = (width / 10) * i;
