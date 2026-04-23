@@ -19,8 +19,7 @@ function setup() {
   locations = new Location();
   iconBtns = new IconBtns(map);
 
-  //Temp data for testing
-
+  //Recive data from local storage, else no data yet.
   const unStringifiredOBJ = localStorage.getItem("dangerInfo") ? JSON.parse(localStorage.getItem("dangerInfo")) : [];
   dangerInfo = {
     data: unStringifiredOBJ,

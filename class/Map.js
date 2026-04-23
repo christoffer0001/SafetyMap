@@ -12,10 +12,12 @@ class Map {
       valueField: "count",
     };
 
+    this.zoomPref = localStorage.getItem("zoomPref") ? parseInt(localStorage.getItem("zoomPref")) : 16;
+
     // Create map inside of div (from html)
     this.map = L.map("map-canvas", {
       center: [56.44879, 9.396084],
-      zoom: 16,
+      zoom: this.zoomPref,
     });
 
     // Display base layer
@@ -35,5 +37,6 @@ class Map {
 
   setZoom(zoomPref) {
     this.map.setZoom(zoomPref);
+    localStorage.setItem("zoomPref", zoomPref);
   }
 }
