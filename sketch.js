@@ -20,8 +20,10 @@ function setup() {
   iconBtns = new IconBtns(map);
 
   //Temp data for testing
+
+  const unStringifiredOBJ = localStorage.getItem("dangerInfo") ? JSON.parse(localStorage.getItem("dangerInfo")) : [];
   dangerInfo = {
-    data: [],
+    data: unStringifiredOBJ,
   };
 
   map.display(dangerInfo);
@@ -40,7 +42,11 @@ function draw() {
 
 function getPos(squareNr) {
   //Arrow function with callback
-  locations.getLocation((pos) => dangerInfo.data.push(pos), squareNr); //Recives the location and passes a function into the function,
+  locations.getLocation(squareNr, (pos) => {
+    dangerInfo.data.push(pos);
+    const stringifiredOBJ = JSON.stringify(dangerInfo.data);
+    localStorage.setItem("dangerInfo", stringifiredOBJ);
+  }); //Recives the location and passes a function into the function,
   // which will run after the location has been found. This function pushes the position into the dangerInfo dataset.
 }
 
