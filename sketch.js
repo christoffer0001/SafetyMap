@@ -15,33 +15,29 @@ function preload() {
 
 function setup() {
   createCanvas(800, 120); // Size of canvas placed below #map-canvas
-  background(255);
 
   map = new Map();
   locations = new Location();
 
   //Temp data for testing
   dangerInfo = {
-    data: [
-      {lat: 56.44879, lng: 9.396084, count: 1},
-      {lat: 56.449, lng: 9.397, count: 1},
-      {lat: 56.447, lng: 9.395, count: 1},
-    ],
+    data: [],
   };
 
   map.display(dangerInfo);
 
   //Repeat the display of danger-zones as heatmap every 10 seconds
   setInterval(() => {
+    if (dangerInfo.data.length == 0) return;
     map.display(dangerInfo);
-    console.log(dangerInfo);
-  }, 10000);
+  }, 1000);
 
   //Makes the logoes be there from the start
   barometerClicked = false;
 }
 
 function draw() {
+  background(255);
   if (barometerClicked == false) {
     //Showw icons if non has been clicked
     image(barometer, 0, 0, width / 4, height);
@@ -68,7 +64,39 @@ function draw() {
   }
 }
 
-function getPos() {
+function getPos(squareNr) {
   //Arrow function with callback
-  locations.getLocation((pos) => dangerInfo.data.push(pos)); //Recives the location and passes a function into the function, which will run after the location has been found. This function pushes the position into the dangerInfo dataset.
+  locations.getLocation((pos) => dangerInfo.data.push(pos), squareNr); //Recives the location and passes a function into the function,
+  // which will run after the location has been found. This function pushes the position into the dangerInfo dataset.
+}
+
+function mouseClicked() {
+  let x = mouseX;
+  let y = mouseY;
+
+  if (x < 0 && x > width && y < 0 && y > height) return;
+  if (barometerClicked) {
+    let squareNr;
+    for (let i = 0; i < 10; i++) {
+      let rectX = (width / 10) * i;
+      let rectW = width / 10;
+
+      if (x >= rectX && x <= rectX + rectW) {
+        squareNr = i + 1;
+        barometerClicked = false;
+        getPos(squareNr);
+      }
+    }
+  } else {
+    if (x > 0 && x < width / 4) {
+      //Barometer
+      barometerClicked = true;
+    } else if (x > (1.05 * width) / 4 && x < (1.05 * width) / 4 + width / 4) {
+      //Ven kontakt
+    } else if (x > (2.1 * width) / 4 && x < (2.1 * width) / 4 + width / 5) {
+      //Natteravn
+    } else if (x > (3.15 * width) / 4 && x < (3.15 * width) / 4 + width / 6) {
+      //Profil
+    }
+  }
 }

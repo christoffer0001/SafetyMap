@@ -1,8 +1,9 @@
 class Location {
   constructor() {}
 
-  getLocation(callback) {
-    //x.x.x = API position access. Thereafter using arrow function to take the position and give it back to the former function (Pushing the position into the dangerInfo dataset)
-    navigator.geolocation.getCurrentPosition((position) => callback({lat: position.coords.latitude, lng: position.coords.longitude, count: 1}));
+  getLocation(callback, squareNr) {
+    //x.x.x = API position access. Thereafter using arrow function to take the position
+    // and give it back to the former function (Pushing the position into the dangerInfo dataset)
+    navigator.geolocation.getCurrentPosition((position) => callback({lat: position.coords.latitude, lng: position.coords.longitude, count: squareNr}));
   }
 }
