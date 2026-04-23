@@ -32,4 +32,8 @@ class Map {
     // Apply data to the heatmap overlay
     this.heatmapLayer.setData(this.info);
   }
+
+  setZoom(zoomPref) {
+    this.map.setZoom(zoomPref);
+  }
 }

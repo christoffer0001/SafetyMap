@@ -1,5 +1,5 @@
 
     - Fix scaling of heatmap point (When zooming)
-    - Make btn functionality
-    - Move all btn struff into separate class
     - Save and recive from Local Storage
+    - Get location for map center
+    - Slider or input to change update interval
