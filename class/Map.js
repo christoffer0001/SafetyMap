@@ -13,7 +13,7 @@ class Map {
     };
 
     let savedZoom = localStorage.getItem("zoomPref");
-    this.zoomPref = savedZoom ? parseInt(savedZoom) : 15;
+    this.zoomPref = savedZoom ? parseInt(savedZoom) : 14;
 
     // Create map inside of div (from html)
     this.map = L.map("map-canvas", {

@@ -3,6 +3,10 @@ let dangerInfo;
 let locations;
 let iconBtns;
 
+let updateInterval;
+
+let mapInterval;
+
 let barometerIcon, brugerprofilIcon, natteravnIcon, vennesymbolIcon;
 
 function preload() {
@@ -17,7 +21,7 @@ function setup() {
 
   map = new Map();
   locations = new Location();
-  iconBtns = new IconBtns(map);
+  iconBtns = new IconBtns(map, restartMapLoading); //Map class, restart function to map (with update intervavl)
 
   //Recive data from local storage, else no data yet.
   const unStringifiredOBJ = localStorage.getItem("dangerInfo") ? JSON.parse(localStorage.getItem("dangerInfo")) : [];
@@ -27,16 +31,25 @@ function setup() {
 
   map.display(dangerInfo);
 
+  let tempUpdateInterval = parseFloat(localStorage.getItem("updateInterval"));
+  updateInterval = tempUpdateInterval ? tempUpdateInterval : 0.5;
+
   //Repeat the display of danger-zones as heatmap every 0.5 seconds
-  setInterval(() => {
-    if (dangerInfo.data.length == 0) return;
-    map.display(dangerInfo);
-  }, 500);
+  startMapLoading();
 }
 
 function draw() {
   background(255);
   iconBtns.display(barometerIcon, vennesymbolIcon, natteravnIcon, brugerprofilIcon);
+}
+
+//Inside function, so it can be called and restarted later
+function startMapLoading() {
+  mapInterval = setInterval(() => {
+    if (dangerInfo.data.length == 0) return;
+    map.display(dangerInfo);
+    console.log("Update");
+  }, updateInterval * 1000);
 }
 
 function getPos(squareNr) {
@@ -54,4 +67,10 @@ function mouseClicked() {
   let y = mouseY;
 
   iconBtns.clicked(x, y);
+}
+
+//When clicked submit, to update interval
+function restartMapLoading() {
+  clearInterval(mapInterval); // stop old interval
+  startMapLoading(); // start new one
 }

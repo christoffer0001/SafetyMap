@@ -1,5 +1,5 @@
 class IconBtns {
-  constructor(mapThing) {
+  constructor(mapClass, restartMapLoading) {
     this.sizeText = width / 20;
 
     this.btnW = width / 4;
@@ -14,13 +14,23 @@ class IconBtns {
     //Phone Input (created, with position, and hidden)
     this.inputPhone = createInput().position(180, 615).hide();
 
-    this.map = mapThing;
+    this.map = mapClass;
+    this.restartMapLoading = restartMapLoading; //Function to restart the map with new interval
+
     //Zoom preference slider (from, to, default, step) (created, with position, and hidden)
     this.zoomPref = createSlider(0, 20, 16, 1).position(180, 650).hide();
 
     //Bruger arrow funktion efter eventlistener (.input: "Calls a function when the element receives input")
     this.zoomPref.input(() => {
       this.map.setZoom(this.zoomPref.value());
+    });
+
+    this.updateInterval = createSlider(0.1, 10, 0.5, 0.1).position(180, 680).hide();
+
+    //Bruger arrow funktion efter eventlistener (.input: "Calls a function when the element receives input")
+    this.updateInterval.input(() => {
+      updateInterval = this.updateInterval.value();
+      localStorage.setItem("updateInterval", updateInterval);
     });
 
     this.profileSubmit = createButton("Indsend").position(200, 700).hide();
@@ -51,17 +61,21 @@ class IconBtns {
       background(220);
       fill(0);
       textSize(16);
-      text("Enter phone:", 50, 30);
+      text("Indtast telf:", 45, 30);
 
-      text("Zoom preference:", 50, 65);
+      text("Zoom Præference:", 45, 65);
+
+      text("Update rate:", 45, 95);
 
       this.inputPhone.show();
       this.zoomPref.show();
       this.profileSubmit.show();
+      this.updateInterval.show();
     } else {
       this.inputPhone.hide();
       this.zoomPref.hide();
       this.profileSubmit.hide();
+      this.updateInterval.hide();
       // ICON VIEW
       image(barometer, 0, 0, this.btnW, height);
       image(vennesymbol, this.vennesymbolX, -height / 6.67, this.btnW, height * 1.4);
@@ -102,6 +116,7 @@ class IconBtns {
   infoSubmitted() {
     //Check profile input
     if (this.mode === "profile") {
+      this.restartMapLoading();
       if (this.inputPhone) {
         this.venTelf = this.inputPhone.value();
         if (this.venTelf != "") {
