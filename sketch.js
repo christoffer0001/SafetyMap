@@ -33,9 +33,6 @@ function setup() {
 
   let tempUpdateInterval = parseFloat(localStorage.getItem("updateInterval"));
   updateInterval = tempUpdateInterval ? tempUpdateInterval : 0.5;
-
-  //Repeat the display of danger-zones as heatmap every 0.5 seconds
-  startMapLoading();
 }
 
 function draw() {

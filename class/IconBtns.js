@@ -125,6 +125,7 @@ class IconBtns {
           console.log("Blank");
         }
       }
+      this.mode = "icons";
     }
   }
 }
