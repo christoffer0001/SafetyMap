@@ -1,3 +1,1 @@
-    - Get "Here are you" location and display on map
-    - Slider or input to change update interval
     - Start-up message

@@ -33,6 +33,8 @@ function setup() {
 
   let tempUpdateInterval = parseFloat(localStorage.getItem("updateInterval"));
   updateInterval = tempUpdateInterval ? tempUpdateInterval : 0.5;
+
+  restartMapLoading();
 }
 
 function draw() {

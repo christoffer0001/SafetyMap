@@ -37,6 +37,14 @@ class Map {
 
     // Apply data to the heatmap overlay
     this.heatmapLayer.setData(this.info);
+
+    // Find lokation for bruger (https://leafletjs.com/reference.html#event-objects)
+    this.map.on("locationfound", (location) => {
+      const lokation = location.latlng;
+
+      // Tilføj markør til kortet
+      L.marker(lokation).addTo(this.map).bindPopup("Du er her 🙂").openPopup();
+    });
   }
 
   //Change zoom setting

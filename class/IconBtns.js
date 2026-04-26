@@ -7,8 +7,9 @@ class IconBtns {
     this.natteravnX = (2.1 * width) / 4;
     this.brugerprofilX = (3.15 * width) / 4;
 
-    this.mode = "icons"; // icons, barometer, profile
+    this.mode = "icons"; // "icons", "barometer", "profile"
 
+    //Telf nr. hentes fra local storage, hvis det eksisterer
     this.venTelf = localStorage.getItem("venTelf") ? parseInt(localStorage.getItem("venTelf")) : "";
 
     //Phone Input (created, with position, and hidden)
@@ -106,7 +107,7 @@ class IconBtns {
     } else if (x > this.brugerprofilX && x < this.brugerprofilX + width / 6 && this.mode == "icons") {
       this.mode = "profile";
     } else if (x > this.vennesymbolX && x < this.vennesymbolX + this.btnW && this.mode == "icons") {
-      console.log("Call Friend");
+      console.log("Call Friend: " + this.venTelf);
     } else if (x > this.natteravnX && x < this.natteravnX + width / 5 && this.mode == "icons") {
       console.log("Call Natteravn");
     }
