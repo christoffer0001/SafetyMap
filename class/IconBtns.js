@@ -117,7 +117,7 @@ class IconBtns {
   infoSubmitted() {
     //Check profile input
     if (this.mode === "profile") {
-      this.restartMapLoading();
+      this.restartMapLoading(); //Genindlæser kortet med (evt.) nyt updateringsinterval
       if (this.inputPhone) {
         this.venTelf = this.inputPhone.value();
         if (this.venTelf != "") {
