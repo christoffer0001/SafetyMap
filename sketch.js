@@ -20,7 +20,7 @@ function setup() {
   createCanvas(800, 120); // Size of canvas placed below #map-canvas
 
   map = new Map();
-  locations = new Location();
+  locations = new Locations();
   iconBtns = new IconBtns(map, restartMapLoading); //Map class, restart function to map (with update intervavl)
 
   //Recive data from local storage, else no data yet.

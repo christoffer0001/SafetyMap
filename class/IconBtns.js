@@ -34,10 +34,16 @@ class IconBtns {
       localStorage.setItem("updateInterval", updateInterval);
     });
 
-    this.profileSubmit = createButton("Indsend").position(200, 700).hide();
+    this.profileSubmit = createButton("Indsend").position(200, 699).hide();
+
+    this.clearData = createButton("Slet Data").position(300, 699).hide();
 
     this.profileSubmit.mousePressed(() => {
       this.infoSubmitted();
+    });
+
+    this.clearData.mousePressed(() => {
+      this.clearDataFunction();
     });
   }
 
@@ -72,11 +78,13 @@ class IconBtns {
       this.zoomPref.show();
       this.profileSubmit.show();
       this.updateInterval.show();
+      this.clearData.show();
     } else {
       this.inputPhone.hide();
       this.zoomPref.hide();
       this.profileSubmit.hide();
       this.updateInterval.hide();
+      this.clearData.hide();
       // ICON VIEW
       image(barometer, 0, 0, this.btnW, height);
       image(vennesymbol, this.vennesymbolX, -height / 6.67, this.btnW, height * 1.4);
@@ -111,6 +119,10 @@ class IconBtns {
     } else if (x > this.natteravnX && x < this.natteravnX + width / 5 && this.mode == "icons") {
       console.log("Call Natteravn");
     }
+  }
+
+  clearDataFunction() {
+    localStorage.clear();
   }
 
   //Runs when clicking submit in profile settings
